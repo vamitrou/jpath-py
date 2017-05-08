@@ -73,7 +73,7 @@ def get_dict_value(doc, path, leaf=None):
                     recon_path = recon_path[:recon_path.index('[')]
 
                 for k, item in enumerate(doc):
-                    val = get_dict_value(item, recon_path)
+                    val = get_dict_value(item, recon_path, leaf)
                     if val:
                         item_arr.append(val)
 
