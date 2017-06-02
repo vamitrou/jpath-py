@@ -32,9 +32,10 @@ def get_dict_value(doc, path, leaf=None):
             idx = int(key[key.index('[')+1:key.index(']')])
             key = key[:key.index('[')]
             if debug: print 'key stripped: ' + key
+
             if not doc.get(key):
                 return None
-
+            
             if isinstance(doc[key], list):
                 if debug: print 'is an array'
                 if idx >= len(doc[key]):
@@ -89,7 +90,7 @@ def get_dict_value(doc, path, leaf=None):
                 if debug: print 'pointing to an array'
                 print "Warning: '%s' array was detected but not expected. Returning first item." % path_splits[i-1]
                 if len(doc) > 0:
-                    doc = doc[0][key]
+                    doc = doc[0].get(key)
             else:
                 if debug: print 'getting object normaly'
                 doc = doc.get(key)
@@ -101,7 +102,7 @@ def get_dict_value(doc, path, leaf=None):
                     try:
                         doc = [d[leaf] for d in doc if d]
                     except:
-                        print "1,", doc
+                        if debug: print "1,", path, doc
                         #raw_input()
                 else:
                     if debug: print 'final object @Val'
